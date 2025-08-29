@@ -31,7 +31,7 @@ services:
       - 14142:14142
 
   walletd:
-    image: hhanh01/pirate_btcpay_walletd
+    image: ${ARRR_WALLETD_IMAGE:-hhanh01/pirate_btcpay_walletd}:${ARRR_WALLETD_TAG:-latest}
     command: "./walletd"
     environment:
       RUST_LOG: info
@@ -40,6 +40,12 @@ services:
       BTCPAYSERVER_lwd_url: https://lightd1.pirate.black:443
     expose:
       - 8000
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS -X POST http://localhost:8000/get_height >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
 
   postgres:
     image:  postgres:13.4
