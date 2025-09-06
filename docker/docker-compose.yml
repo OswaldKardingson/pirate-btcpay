@@ -12,7 +12,7 @@ services:
       - walletd
 
   server:
-    image: hhanh01/pirate_btcpay_server
+    image: ${ARRR_SERVER_IMAGE:-kardingson/pirate_btcpay_server}:${ARRR_SERVER_TAG:-v0.1.4}
     command: "dotnet BTCPayServer.dll"
     environment:
       "BTCPAY_BIND": 0.0.0.0:14142
