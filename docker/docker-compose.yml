@@ -35,9 +35,12 @@ services:
     command: "./walletd"
     environment:
       RUST_LOG: info
-      BTCPAYSERVER_starting_height: 3589000
-      BTCPAYSERVER_fvk: zxviews1qvadgejdqqqqpqxmqzjzsd3z8g9qu5vuwjwaqmh4525x9h25ey2x4chuxx3e29wkstlndadtqh58fcwq7ts0423es44pdvxrzfw55h8kcwcq9hlvmxlwucwanayrmexd2wtw7g8zaaz70029l6m43ymmsdsghwdkxw52zl4aqq462hul8w0dxh4eclpdudym69ke39w8ex9gl3770uxeanx6kfslyjx5z00hcjtvrur634vwk33g0dp6sgk0l4xkls3p8kafgyr3wxs2d808u
+      BTCPAYSERVER_starting_height: 3602130
+      BTCPAYSERVER_fvk: zxviews1qdchfgzdqyqqpqqjg4l47nd9t5m0j6kzwsxaf84ktc74uhc4nnnu8fgwyjk0958xnytz45xhudjar87c97q5jqq52duq9s3vqhntt0udhxczqfzm25aqsnuhk84pmpt9mahah4eqtjjjqqywwlxg82e6t9ngm9glr9qhxcdttc2mkkcwjr9clqsskx7u2fwlh0prseppxw8ap7fm5s9zxatf6a4lt8tf9j9kkywhpqfqpr5avtcrc8ahndzssjjppsnqupcxecypplsfjgwek
       BTCPAYSERVER_lwd_url: https://lightd1.pirate.black:443
+      BTCPAYSERVER_poll_interval: "10"
+      BTCPAYSERVER_notify_host: http://server:14142
+      BTCPAYSERVER_confirmations: "6"
     expose:
       - 8000
     healthcheck:
