@@ -62,6 +62,7 @@ Follow the instructions for your OS. All paths below create and use a new `pirat
    ```
    fvk: Your-Full-Veiwing-Key
    starting_height: 200000 (example, base this on your wallet's birthday height)
+   confirmations: 6 (Set to 6 by default. You can change the number of confirmations before a transaction is accepted)
    ```
 5. Start services:
    ```
@@ -124,3 +125,39 @@ Follow the instructions for your OS. All paths below create and use a new `pirat
 ## Troubleshooting
 - If the site isn’t reachable, ensure Docker is running and ports aren’t in use
 - If walletd shows unhealthy, check logs and confirm `fvk` and `starting_height` are set correctly
+
+## Build and use your own Docker images
+If you prefer to build and publish your own `server` and `walletd` images, follow these steps.
+
+1) Build images locally (from the repo root):
+```
+docker build -f docker/Dockerfile-server -t YOUR_DOCKERHUB_USERNAME/pirate_btcpay_server:YOUR_TAG .
+docker build -f docker/Dockerfile-walletd -t YOUR_DOCKERHUB_USERNAME/pirate_btcpay_walletd:YOUR_TAG .
+```
+
+2) Publish images to Docker Hub (or your registry):
+```
+docker login
+docker push YOUR_DOCKERHUB_USERNAME/pirate_btcpay_server:YOUR_TAG
+docker push YOUR_DOCKERHUB_USERNAME/pirate_btcpay_walletd:YOUR_TAG
+```
+
+3) Point compose to your images by editing `docker/docker-compose.yml`:
+- Replace the `image:` lines under `server` and `walletd` with your image names and tags.
+```yaml
+  server:
+    image: YOUR_DOCKERHUB_USERNAME/pirate_btcpay_server:YOUR_TAG
+    # ...
+
+  walletd:
+    image: YOUR_DOCKERHUB_USERNAME/pirate_btcpay_walletd:YOUR_TAG
+    # ...
+```
+
+4) Apply changes:
+```
+docker compose up -d default
+```
+
+Note: The compose file currently defaults to `kardingson/pirate_btcpay_server:latest` and
+`kardingson/pirate_btcpay_walletd:v0.1.1`. Overwrite these with your own names/tags as shown above.
